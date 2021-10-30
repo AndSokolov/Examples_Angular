@@ -1,0 +1,187 @@
+<mat-accordion>
+    <mat-expansion-panel class="custom-accordion">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Create Regexp
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <mat-form-field class="input-area">
+                <mat-select placeholder="System type" formControlName="system_type"
+                            (selectionChange)="generateVersions($event.value)">
+                    <mat-option value="VESNIN">VESNIN</mat-option>
+                    <mat-option value="TATLIN.ARCHIVE">TATLIN.ARCHIVE</mat-option>
+                    <mat-option value="TATLIN.UNIFIED">TATLIN.UNIFIED</mat-option>
+                    <mat-option value="P-SERIES">P-SERIES</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="input-area">
+                <mat-select placeholder="Versions" formControlName="versions" multiple>
+                    <mat-option *ngFor="let version of versions" [value]="version">{{version}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="input-area">
+                <input matInput placeholder="ID" formControlName="kdb_id"/>
+            </mat-form-field>
+
+            <mat-form-field class="input-area">
+                <input matInput placeholder="KDB URL" formControlName="kdb_url"/>
+            </mat-form-field>
+
+            <ng-container formArrayName="regexps"
+                          *ngFor="let regex of form.controls.regexps['controls']; let i = index">
+                <mat-form-field class="input-regexp">
+                    <input matInput placeholder="File" [formControl]="regex.controls[0]"/>
+                </mat-form-field>
+                <mat-form-field class="input-regexp">
+                    <input matInput placeholder="Regexp" [formControl]="regex.controls[1]"/>
+                    <mat-error *ngIf="regex.controls[1].errors?.regexp">Invalid regular expression</mat-error>
+                </mat-form-field>
+                <mat-icon (click)="removeItem(i)"
+                          *ngIf="form.controls.regexps['controls'].length > 0 && i !== form.controls.regexps['controls'].length - 1"
+                          matSuffix>remove
+                </mat-icon>
+            </ng-container>
+            <mat-icon (click)="addItem()" class="new-item" matTooltip="Add file,regexp"
+                      [matTooltipPosition]="'right'">
+                add
+            </mat-icon>
+        </form>
+        <div>
+            <mat-card-actions>
+                <button (click)="submit()" type="submit" id="custom-submit" mat-raised-button
+                        [disabled]="form.invalid">Submit
+                </button>
+            </mat-card-actions>
+        </div>
+
+    </mat-expansion-panel>
+</mat-accordion>
+<mat-table [dataSource]="dataSource" style="width: 100%;">
+    <ng-container matColumnDef="type">
+        <mat-header-cell *matHeaderCellDef> System type</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="version">
+        <mat-header-cell *matHeaderCellDef> Software version</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.version}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="matches">
+        <mat-header-cell *matHeaderCellDef> Matches</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.matches}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="author">
+        <mat-header-cell *matHeaderCellDef> Author</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.author}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="kdb_id">
+        <mat-header-cell mat-header-cell *matHeaderCellDef> KDB ID</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.kdb_id}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="kdb_url">
+        <mat-header-cell *matHeaderCellDef> KDB URL</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.kdb_url}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="regexp">
+        <mat-header-cell *matHeaderCellDef> Regexp</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.regexp}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="filename">
+        <mat-header-cell *matHeaderCellDef> File Name</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.filename}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="action_button">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let  element">
+            <div *ngIf="expandedElements.has(element.kdb_id) || (!element.isParent && !element.parentRegexp)">
+                <button title="Edit regexp" mat-icon-button
+                        (click)="edit($event,element)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button title="Delete regexp" mat-icon-button (click)="delete($event, element.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="indicator">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let  element">
+            <div *ngIf="element.isParent">
+                <mat-icon>{{expandedElements.has(element.kdb_id) ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
+            </div>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" [appCdkDetailRow]="row"
+             [appCdkDetailRowTpl]="tpl"
+             (click)="expandedElements.has(row.kdb_id) ? expandedElements.delete(row.kdb_id) : expandedElements.add(row.kdb_id)"
+             [class.expanded]="expandedElements.has(row.kdb_id) && (row.isParent || row.parentRegexp)"
+             [class.element-row]="row.isParent || row.parentRegexp"
+    >
+    </mat-row>
+</mat-table>
+<mat-paginator (page)=clearExpandedElements() pageSize="25"
+               [length]="dataSource.data?.length"></mat-paginator>
+
+<ng-template #tpl let-row>
+    <mat-table [@detailExpand] [dataSource]="row.children" style="width: 100%;">
+        <ng-container matColumnDef="type">
+            <mat-header-cell *matHeaderCellDef> System type</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="version">
+            <mat-header-cell *matHeaderCellDef> Software version</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.version}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="matches">
+            <mat-header-cell *matHeaderCellDef> Matches</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.matches}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="author">
+            <mat-header-cell *matHeaderCellDef> Author</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.author}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="kdb_id">
+            <mat-header-cell mat-header-cell *matHeaderCellDef> KDB ID</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.kdb_id}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="kdb_url">
+            <mat-header-cell *matHeaderCellDef> KDB URL</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.kdb_url}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="regexp">
+            <mat-header-cell *matHeaderCellDef> Regexp</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.regexp}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="filename">
+            <mat-header-cell *matHeaderCellDef> File Name</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.filename}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="action_button">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let  element">
+                <div *ngIf="expandedElements.has(element.kdb_id)  || (!element.isParent && !element.parentRegexp)">
+                    <button title="Edit regexp" mat-icon-button
+                            (click)="edit($event,element)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button title="Delete regexp" mat-icon-button (click)="delete($event,element.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="indicator">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let  element">
+                <mat-icon></mat-icon>
+            </mat-cell>
+        </ng-container>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" class="row-child">
+        </mat-row>
+    </mat-table>
+</ng-template>

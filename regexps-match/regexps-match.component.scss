@@ -1,0 +1,57 @@
+
+.matches-header {
+	color: rgba(0,0,0,.87);
+	font: 400 19px Roboto, "Helvetica Neue", sans-serif !important;
+	height: 50px;
+	width: 95%;
+	margin: -69px 0 20px -24px;
+	padding: 15px;
+	box-shadow: 0 2px 3px #b9b9b9;
+	position: fixed;
+	background: #fbfafa;
+	z-index: 1000;
+}
+
+.close-icon {
+	float: right;
+	margin-top: -10px;
+}
+
+.lines {
+	font-size: 15px;
+}
+
+table{
+	width: 100%;
+}
+
+tr{
+	height: 36px !important;
+}
+
+td, th {
+	padding-left: 15px;
+}
+
+td{
+	word-wrap: break-word !important;
+	white-space: pre-wrap;
+}
+
+.title-regexp{
+	color: rgba(0,0,0,.87);
+	font-size: 20px;
+	padding-bottom: 12px;
+}
+
+.mat-expansion-panel-header-title{
+	font-size: 18px;
+}
+
+.custom-regexp-title.fixed{
+	position: fixed;
+	background: white;
+	z-index: 99999;
+	width: 95%;
+	top:5%;
+}

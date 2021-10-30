@@ -1,0 +1,54 @@
+<mat-accordion>
+    <mat-expansion-panel class="custom-accordion">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Create Version
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <form [formGroup]="form">
+            <mat-form-field class="input-area">
+                <mat-select placeholder="System type" formControlName="system_type">
+                    <mat-option value="VESNIN">VESNIN</mat-option>
+                    <mat-option value="TATLIN.ARCHIVE">TATLIN.ARCHIVE</mat-option>
+                    <mat-option value="TATLIN.UNIFIED">TATLIN.UNIFIED</mat-option>
+                    <mat-option value="P-SERIES">P-SERIES</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="input-area">
+                <input matInput placeholder="Software version" formControlName="version"/>
+            </mat-form-field>
+            <mat-error *ngIf="this.duplicateEntry">duplicate entry, please enter a unique value</mat-error>
+        </form>
+        <div>
+            <button  id="custom-submit" (click)="save()" mat-raised-button type="submit" [disabled]="form.invalid">Save</button>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>
+
+<mat-table matSort [dataSource]="dataSource">
+    <ng-container matColumnDef="system_type">
+        <mat-header-cell mat-sort-header *matHeaderCellDef>System Type</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.system_type}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="version">
+        <mat-header-cell mat-sort-header *matHeaderCellDef>Version</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.version}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let  element">
+            <button title="Delete credentials" mat-icon-button (click)="delete(element.system_type, element.version)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<mat-paginator [pageSize]="7" [pageSizeOptions]="[7, 15]"></mat-paginator>
+
+

@@ -1,0 +1,197 @@
+.content{
+	display: grid;
+	margin: 25px 0 0 10px;
+	grid-gap: 20px;
+	grid-template-columns: minmax(520px, 40%) minmax(860px, 60%);
+}
+
+.rack-elements{
+	text-align: center;
+}
+
+.rack{
+	display: inline-block;
+	text-align: center;
+	h1{
+		text-align: center;
+		padding-left: 60px;
+		font-size: 22px;
+	}
+
+	div{
+		width: 280px;
+		vertical-align: top;
+		box-sizing: border-box;
+		display: inline-block;
+	}
+}
+
+.show-device{
+	margin-left: 300px;
+}
+
+mat-card-title{
+	font-size: 18px;
+}
+
+.current-device{
+	width: 300px;
+	position: fixed;
+	text-align: initial;
+	vertical-align: top;
+	height: fit-content;
+	display: inline-block;
+	margin-bottom: 25px;
+	mat-card-title{
+		padding-left: 5px;
+	}
+}
+
+mat-panel-title{
+	font-size: 18px;
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.header {
+	height: 50px;
+	width: 95%;
+	margin: -69px 0 20px -24px;
+	padding: 15px;
+	box-shadow: 0 2px 3px #b9b9b9;
+	position: fixed;
+	background: #fbfafa;
+	z-index: 1000;
+}
+
+.close-icon{
+	float: right;
+	margin-top: -10px;
+}
+
+.close-device_icon{
+	float: right;
+}
+
+.mat-table{
+	width: 100%;
+	overflow: hidden;
+}
+
+tr{
+	border: none;
+}
+
+td, th{
+	border: 1px solid gray;
+	border-right: 2px solid black;
+	border-left: 2px solid black;
+	justify-content: center;
+	padding: 0 !important;
+}
+
+tr:not(.device):hover td:nth-child(1){
+	color: gray;
+	font-weight: 600;
+}
+
+tr:not(.front-row.device, .rear_row.device):hover td:nth-child(2) {
+	cursor: pointer;
+	background: #e3f2fd;
+	border: 2px solid #5ba8fb;
+	border-radius: 2px;
+}
+
+tr.front-row.device:hover td:nth-child(2), td:nth-child(2).selected {
+	outline: 2px solid #5ba8fb;
+	cursor: pointer;
+}
+
+.mat-header-row{
+	display: none;
+}
+
+tr:last-child td:nth-child(2){
+	border-bottom: 2px solid black ;
+}
+
+tr:nth-child(1) td:nth-child(2){
+	border-top: 2px solid black ;
+}
+
+td:nth-child(1), th:nth-child(1){
+	border: none;
+	width: 60px;
+}
+
+td:nth-child(2), th:nth-child(2){
+	width: 220px;
+}
+
+tr, .mat-footer-row{
+	min-height: 24px;
+	height: 24px !important;
+}
+
+.add_device{
+	display: none;
+}
+
+.mat-row:hover td:nth-child(2) .add_device{
+	display: inline-block;
+}
+
+img{
+	width: 100%;
+}
+
+img.plannedDevice{
+	opacity: 0.45;
+}
+
+.progress-container{
+	position: relative;
+	top: 4px;
+	left: 8px;
+	display: inline-block;
+	width: 290px;
+	padding-right: 10px;
+}
+
+mat-progress-bar {
+	height: 18px;
+	border-radius: 2px;
+}
+
+.percent{
+	position: absolute;
+	top: -4px;
+}
+
+.device-type{
+	width: 520px;
+}
+
+.rack_info{
+	width: 520px;
+	margin-bottom: 50px;
+
+	mat-card-title mat-icon{
+		position: relative;
+		top: 5px;
+	}
+
+	ul{
+		font-family: Roboto, "Helvetica Neue", sans-serif;
+		font-size: 15px;
+		line-height: 1.8em;
+
+		.params{
+			font-weight: 700;
+		}
+
+		.params + span{
+			display: inline-block;
+			margin-left: 5px;
+		}
+	}
+}

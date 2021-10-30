@@ -1,0 +1,35 @@
+<div class="container">
+    <h1 mat-dialog-title><span class="log_id_label">Report</span>
+        <button mat-icon-button class="close-icon" (click)="dialogRef.close()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </h1>
+
+    <form *ngIf="!loadingLpars" [formGroup]="form" (ngSubmit)="submit()">
+        <div class="form-fields" [formGroup]="recommendation"
+             *ngFor="let recommendation of recommendations.controls; let i = index">
+            <mat-form-field class="lpar_name">
+                <input readonly matInput placeholder="Lpar_name" formControlName="lpar_name"/>
+            </mat-form-field>
+            <mat-form-field class="recommendations">
+            <textarea matInput placeholder="Recommendation" formControlName="recommendation"
+                      cdkTextareaAutosize
+                      #autosize="cdkTextareaAutosize"
+                      cdkAutosizeMinRows="1"
+                      cdkAutosizeMaxRows="8"></textarea>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-card-actions>
+                <button id="custom-submit" mat-raised-button type="submit" [disabled]="form.invalid || loadingPdf">Submit
+                </button>
+            </mat-card-actions>
+        </div>
+    </form>
+
+    <div *ngIf="loadingPdf || loadingLpars" class="spinner-container">
+        <mat-spinner></mat-spinner>
+    </div>
+</div>
+

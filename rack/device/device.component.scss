@@ -1,0 +1,19 @@
+.input-area {
+	display: inline-block;
+	margin: auto;
+	width: 100%;
+}
+
+.actions{
+	margin-top: 20px;
+}
+
+button {
+	float: left;
+	margin-right: 15px;
+}
+
+button.delete{
+	float: right;
+	margin: 0;
+}

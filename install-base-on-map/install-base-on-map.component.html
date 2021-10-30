@@ -1,0 +1,27 @@
+<div class="filter-container">
+        <button class="reset" mat-raised-button (click)="resetFilter = true">Reset Filters</button>
+        <syr-reg-filter (updateFilter)="updateFilter($event)" [filter] = "filter" [reset]="resetFilter"></syr-reg-filter>
+</div>
+<div class="map-container">
+    <div class="map-frame">
+        <div id="map">
+            <mat-accordion class="accordion" (mouseover)="map.dragging.disable();" (mouseout)="map.dragging.enable()" (dblclick)="$event.stopPropagation()">
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <mat-icon class="search-icon">search</mat-icon>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="panel-content">
+                        <mat-form-field>
+                            <input [(ngModel)]="searchText" (keyup)="findAddress($event)" matInput placeholder="Enter address"/>
+                            <button mat-button mat-icon-button matSuffix (click)="searchText = ''">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
+</div>

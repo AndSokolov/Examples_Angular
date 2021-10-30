@@ -1,0 +1,101 @@
+<syr-stand-toolbar [navLinks] = navLinks></syr-stand-toolbar>
+
+<div class="content">
+    <div class='info'>
+        <mat-card class="rack_info">
+            <mat-card-title>
+                <mat-icon color="primary">info</mat-icon>
+                Rack information
+            </mat-card-title>
+            <mat-card-content>
+                <ul>
+                    <li><span class="params">Name: </span><span>{{rack?.name}}</span></li>
+                    <li><span class="params">Building: </span> <span>{{building?.name}}</span></li>
+                    <li><span class="params">City: </span> <span>{{city?.name}}</span></li>
+                    <li><span class="params">Height: </span> <span>{{rack?.height}}</span></li>
+                    <li><span class="params">Weight: </span> <span>{{rack?.weight}}</span></li>
+                    <li><span class="params">Power: </span><span>{{rack?.power}}</span></li>
+                    <li>
+                        <span class="params">Used power:  </span>
+                        <div class="progress-container">
+                            <mat-progress-bar class="blue-progress-bar" mode="determinate"
+                                              [value]="rack?.used_power_per"></mat-progress-bar>
+                            <span class="percent" [ngStyle]="{'left': rack?.used_power_per + '%'}">{{rack?.used_power_per}}%</span>
+                        </div>
+                    </li>
+                </ul>
+            </mat-card-content>
+        </mat-card>
+
+        <div class="device-type">
+            <syr-device-type></syr-device-type>
+        </div>
+
+    </div>
+
+    <div class="rack-elements">
+        <mat-card class="current-device" *ngIf="currentDevice">
+            <mat-card-title>Device
+                <a #link hidden target="_blank" [routerLink] = "'/install-base/by-sn/' + currentDevice.serial_number + '/devices'"></a>
+                <button title = "Open in system" mat-icon-button (click)="link.click()">
+                    <mat-icon>open_in_new</mat-icon>
+                </button>
+                <button mat-icon-button class="close-device_icon" (click)="currentDevice = null">
+                <mat-icon>close</mat-icon>
+            </button></mat-card-title>
+            <mat-card-content>
+                <syr-device [device]="currentDevice" [rackHeight] = "rack.height" (isEdited) = getDevices() (isDeleted) = getDevices() ></syr-device>
+            </mat-card-content>
+        </mat-card>
+
+        <div class="rack" [ngClass]="{'show-device': currentDevice}">
+            <div class="front">
+                <h1 mat-card-title>Front</h1>
+                <table mat-table [dataSource]="dataSource_front">
+                    <ng-container matColumnDef="position">
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let item">{{item.isDevice ? item.topPosition : item.bottomPosition}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="device_image">
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let item" [attr.rowspan]="item.height ? item.height : 1"
+                            [style.display]="item.cellIsHidden ? 'none' : ''"
+                            (click)="item.isDevice ? setCurrentDevice(item) : addDevice(item.bottomPosition)"
+                            [ngClass]="{'selected': currentDevice?.id === item?.id}">
+                        <span *ngIf="item.isDevice">
+                            <img alt="front picture"  [ngClass]="{'plannedDevice': item.status === 'plan'}" [attr.src]="item.front_pic_url$ | async" [height]="item.height * 24">
+                        </span>
+                            <span *ngIf="!item.isDevice" class="add_device">add device</span>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr class="front-row" [ngClass]="{'device': row.isDevice}"
+                        mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
+
+            <div class="rear">
+                <h1 mat-card-title>Rear</h1>
+                <table mat-table [dataSource]="dataSource_rear">
+                    <ng-container matColumnDef="position">
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let item">{{item.isDevice ? item.topPosition : item.bottomPosition}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="device_image">
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let item" [attr.rowspan]="item.height ? item.height : 1"
+                            [style.display]="item.cellIsHidden ? 'none' : ''"
+                            (click)="!item.isDevice ? addDevice(item.bottomPosition) : null">
+                            <span *ngIf="item.isDevice">
+                                <img alt="rear picture" [ngClass]="{'plannedDevice': item.status === 'plan'}" [attr.src]="item.rear_pic_url$ | async" [height]="item.height * 24">
+                            </span>
+                            <span *ngIf="!item.isDevice" class="add_device">add device</span>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr class="rear_row" [ngClass]="{'device': row.isDevice}" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

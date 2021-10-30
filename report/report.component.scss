@@ -1,0 +1,44 @@
+.container{
+	position: relative;
+}
+
+.close-icon {
+	float: right;
+}
+
+form {
+	margin: auto;
+	padding: 0 20px;
+}
+
+.form-fields{
+	display: grid;
+	grid-gap: 30px;
+	grid-template-columns: 1fr 2fr;
+}
+
+.input-area {
+	display: inline-block;
+	margin: auto;
+	width: 80%;
+}
+
+.recommendations, .lpar_name {
+	display: inline-block;
+}
+
+#custom-submit {
+	float: right;
+}
+
+.spinner-container {
+	left: 50%;
+	top:50%;
+	position: absolute;
+
+	mat-spinner {
+		left: -50%;
+		top: -50%;
+		position: relative;
+	}
+}

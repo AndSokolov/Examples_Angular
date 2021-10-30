@@ -1,0 +1,37 @@
+<h1 mat-dialog-title> Edit Regexp
+    <button mat-icon-button class="close-icon" (click)="dialogRef.close()">
+        <mat-icon>close</mat-icon>
+    </button>
+</h1>
+<div class="container">
+    <form [formGroup]="form" (ngSubmit)="save(data.id)">
+        <mat-form-field class="input-area">
+            <mat-select placeholder="System type" formControlName="system_type" (selectionChange)="generateVersions($event.value)" cdkFocusRegionStart>
+                <mat-option value="VESNIN">VESNIN</mat-option>
+                <mat-option value="TATLIN.ARCHIVE">TATLIN.ARCHIVE</mat-option>
+                <mat-option value="TATLIN.UNIFIED">TATLIN.UNIFIED</mat-option>
+                <mat-option value="P-SERIES">P-SERIES</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="input-area">
+            <mat-select placeholder="Versions" formControlName="versions" multiple>
+                <mat-option *ngFor="let version of versions" [value]="version">{{version}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="input-area">
+            <input matInput placeholder="KDB URL" formControlName="kdb_url"/>
+        </mat-form-field>
+        <mat-form-field class="input-area">
+            <input matInput placeholder="Regexp" formControlName="regexp"/>
+            <mat-error *ngIf="form.controls['regexp'].errors?.regexp">Invalid regular expression</mat-error>
+        </mat-form-field>
+        <mat-form-field class="input-area">
+            <input matInput placeholder="File name" formControlName="filename"/>
+        </mat-form-field>
+        <div>
+            <mat-card-actions>
+                <button id="custom-submit" mat-raised-button type="submit" [disabled]="form.invalid">Save</button>
+            </mat-card-actions>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,42 @@
+<form [formGroup]="form" (ngSubmit)="editDevice()">
+    <mat-form-field class="input-area">
+        <input [readonly]="!editMode" matInput placeholder="Name" formControlName="name"/>
+    </mat-form-field>
+    <mat-form-field *ngIf="editMode" class="input-area">
+        <mat-select placeholder="Device type" formControlName="drawer_type_id" (selectionChange)="updatePositionControl()">
+            <mat-option *ngFor="let type of types" [value]="type.id">{{type.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="!editMode"  class="input-area">
+        <input readonly matInput placeholder="Device type" [value]="form.get('drawer_type_id').value | nameFromArray: types"/>
+    </mat-form-field>
+    <mat-form-field *ngIf="editMode" class="input-area">
+        <mat-select placeholder="Status" formControlName="status">
+            <mat-option value="plan">plan</mat-option>
+            <mat-option value="production">production</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="!editMode" class="input-area">
+        <input readonly matInput placeholder="Status" [value]="form.get('status').value"/>
+    </mat-form-field>
+    <mat-form-field class="input-area">
+        <input [readonly]="!editMode" matInput placeholder="Serial Number" formControlName="serial_number"/>
+    </mat-form-field>
+    <mat-form-field class="input-area">
+        <input [readonly]="!editMode" type="number" matInput placeholder="Weight" formControlName="weight"/>
+    </mat-form-field>
+    <mat-form-field class="input-area">
+        <input [readonly]="!editMode" type="number" matInput placeholder="Power" formControlName="power"/>
+    </mat-form-field>
+    <mat-form-field class="input-area">
+        <input [readonly]="!editMode" type="number" matInput placeholder="Position" formControlName="position"/>
+        <mat-error *ngIf="form.get('position').errors?.max">Position should not be more than {{maxPosition}}</mat-error>
+        <mat-error *ngIf="form.get('position').errors?.min">Position cannot be less than 1</mat-error>
+    </mat-form-field>
+    <div class="actions">
+        <button *ngIf="!editMode" mat-raised-button type="button" (click)="editMode = true">Edit</button>
+        <button *ngIf="editMode" mat-raised-button type="submit" [disabled]="form.invalid">Save</button>
+        <button *ngIf="editMode" mat-raised-button type="button"  (click)="editMode = false" [disabled]="form.invalid">Cancel</button>
+        <button class="delete" mat-raised-button type="button" color="warn" (click)="deleteDevice()">Delete</button>
+    </div>
+</form>

@@ -1,0 +1,85 @@
+mat-expansion-panel-header{
+	font-size: 18px;
+	padding-left: 15px;
+}
+
+.types{
+	margin: 15px 5px;
+}
+
+.types_hidden{
+	display: none;
+}
+
+.new_type{
+	margin-top: 20px;
+	float: right;
+}
+
+mat-card-title{
+	margin-bottom: 0;
+	font-size: 18px;
+}
+
+mat-divider{
+	margin-top: 4px;
+}
+
+.data_empty{
+	font-size: 15px;
+	padding-left: 2px;
+	margin-top: 15px;
+
+	.add-type{
+		float: right;
+		margin-top: -7px;
+	}
+}
+
+.new-item{
+	width: 25px;
+	height: 25px;
+	font-size: 25px;
+	color: rgba(0,0,0,.87);
+}
+
+img{
+	width: 100%;
+	height: 45px;
+}
+
+mat-cell, mat-header-cell{
+	padding: 0 1px;
+	word-break: break-word;
+}
+
+mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type{
+	padding-left: 24px;
+}
+
+mat-cell:nth-child(1), mat-header-cell:nth-child(1){
+	min-width: 115px;
+}
+
+mat-cell:nth-child(2), mat-header-cell:nth-child(2){
+	min-width: 60px;
+	padding-left: 3px;
+}
+
+mat-cell:nth-child(3), mat-header-cell:nth-child(3){
+	padding: 3px 2px;
+	min-width: 90px;
+	max-width: 160px;
+
+}
+
+mat-cell:nth-child(4), mat-header-cell:nth-child(4){
+	padding: 3px 2px;
+	min-width: 90px;
+	max-width: 160px;
+}
+
+mat-cell:nth-child(5), mat-header-cell:nth-child(5){
+	flex: 0 0 120px;
+	justify-content: right;
+}
