@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="yadroLogo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 480 250 60" xml:space="preserve">
+<g fill="#262424">
+	<path d="M166.9,538.1h32l-32-55.4V538.1z"/>
+	<path d="M78.8,538.1h36l-32.6-56.4l-18,31.2L78.8,538.1z"/>
+	<path d="M49.6,538.1h27.9l-13.9-24.1L49.6,538.1z"/>
+	<polygon points="107.1,481 107.1,522.5 116.1,538.1 135.8,538.1 135.8,481"/>
+	<path d="M1,481l17.6,30.6L36.3,481H1z"/>
+	<path d="M19.3,538.1H48v-25.5l0,0L66.2,481H37.7l-18.5,31.9V538.1z"/>
+	<path d="M167.3,481l15.8,27.4c6-1.7,10.1-7.2,10.1-13.4c0-7.7-6.2-14-14-14L167.3,481L167.3,481z"/>
+	<path d="M137,538.1h0.2c15.7,0,28.5-12.8,28.5-28.5c0-15.7-12.8-28.5-28.5-28.5H137L137,538.1L137,538.1z"/>
+	<circle cx="220.5" cy="509.4" r="28.5"/>
+</g>
+</svg>

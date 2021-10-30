@@ -1,0 +1,3 @@
+<div *ngIf="(allCommits$ | async) as allCommits">
+  <app-commits [data] = allCommits></app-commits>
+</div>

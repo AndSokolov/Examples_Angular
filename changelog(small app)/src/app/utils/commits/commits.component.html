@@ -1,0 +1,71 @@
+<mat-card class="commits">
+  <mat-card-title>Commits</mat-card-title>
+  <mat-card-content>
+
+    <div class="filter">
+      <mat-form-field>
+        <input matInput placeholder="Filter" [(ngModel)]="dataSource.filter"/>
+      </mat-form-field>
+    </div>
+
+    <mat-table matSort [dataSource]="dataSource">
+
+      <ng-container matColumnDef="FirmwareNumber">
+        <mat-header-cell mat-sort-header  *matHeaderCellDef>FW Number</mat-header-cell>
+        <mat-cell *matCellDef="let item"><a target="_blank" [href]="repo_url+item.DirectoryName">{{item.FirmwareNumber}}</a></mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="FirmwareDate">
+        <mat-header-cell mat-sort-header  *matHeaderCellDef>FW Date</mat-header-cell>
+        <mat-cell *matCellDef="let item">{{item.stringDateFW}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="BoardNumber">
+        <mat-header-cell mat-sort-header  *matHeaderCellDef>Board number</mat-header-cell>
+        <mat-cell *matCellDef="let item">{{item.BoardNumber}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="CommitAuthor">
+        <mat-header-cell mat-sort-header  *matHeaderCellDef>Commit Author</mat-header-cell>
+        <mat-cell *matCellDef="let item">{{item.CommitAuthor}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="CommitDate">
+        <mat-header-cell mat-sort-header  *matHeaderCellDef>Commit Date</mat-header-cell>
+        <mat-cell *matCellDef="let item">{{item.stringDateCommit}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="CommitHash">
+        <mat-header-cell mat-sort-header  *matHeaderCellDef>Commit Hash</mat-header-cell>
+        <mat-cell *matCellDef="let item">{{item.CommitHash}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="CommitMessage">
+        <mat-header-cell mat-sort-header *matHeaderCellDef>Commit Message</mat-header-cell>
+        <mat-cell *matCellDef="let item">
+          <ul>
+            <ng-container *ngFor="let message of item.CommitMessage">
+              <li *ngIf="message !== ''">{{message}}</li>
+            </ng-container>
+          </ul>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="DirectoryName">
+        <mat-header-cell mat-sort-header  *matHeaderCellDef>Directory Name</mat-header-cell>
+        <mat-cell *matCellDef="let item">{{item.DirectoryName}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="JiraIssue">
+        <mat-header-cell mat-sort-header  *matHeaderCellDef>Jira Issue</mat-header-cell>
+        <mat-cell *matCellDef="let item"><a target="_blank" [href]="jira_url + item.JiraIssue">{{item.JiraIssue}}</a></mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[10,50, 100, 250]"></mat-paginator>
+
+  </mat-card-content>
+</mat-card>
+
