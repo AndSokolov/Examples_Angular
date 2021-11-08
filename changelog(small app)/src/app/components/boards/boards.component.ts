@@ -20,7 +20,6 @@ export class BoardsComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ['number'];
   dataSource = new MatTableDataSource([]);
-  currentData: Array<any>;
   currentBoardCommits: BoardCommits;
   selectedRow: Board;
 
@@ -30,14 +29,15 @@ export class BoardsComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-    this.getBoards();
+    this.getBoardsNumbers();
   }
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
 
-  getBoards(){
+  /** getting board numbers from back */
+  getBoardsNumbers(){
     this.getDataService.getBoardNumbers().pipe(take(1)).subscribe((boards: string[]) => {
       this.dataSource.data = boards ? boards.map((jira) => ({number: jira})) : [];
       this.dataSource.paginator = this.paginator;

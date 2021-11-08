@@ -69,6 +69,7 @@ export class RackComponent implements OnInit {
 		this.navLinks.currentPage = this.rack.name;
 	}
 
+	/** get Devices entities */
 	getDevices(){
 		this.service.getRackDevices(this.rack.id).pipe(
 			map(devices => devices ? devices.map((device) => this.addParamsToDevice(device)) : []),

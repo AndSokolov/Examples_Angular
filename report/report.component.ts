@@ -9,7 +9,7 @@ import { Registration } from '@app/registration/registration.model';
 import { AppState, getRegistration } from '@app/store/selectors';
 import { takeUntil } from 'rxjs/operators';
 import { forkJoin, Observable, Subject } from 'rxjs';
-import { SystemInfo } from '@app/interfaces';
+import { SystemInfo, Report } from '@app/interfaces';
 
 @Component({
 	selector: 'syr-report',
@@ -32,7 +32,7 @@ export class ReportComponent implements OnInit, OnDestroy {
 		private store: Store<AppState>,
 		private service: GetDataService,
 		private fb: FormBuilder,
-		@Inject(MAT_DIALOG_DATA) public data,
+		@Inject(MAT_DIALOG_DATA) public data: Report,
 	) {
 	}
 
@@ -94,11 +94,11 @@ export class ReportComponent implements OnInit, OnDestroy {
 
 	/** get data by lpar_name and add it to the form */
 	updateLparName(){
-		const streams: Record<string, Observable<SystemInfo>> = {};
-		this.data.uploadIDs.forEach(uploadID => streams[uploadID] = this.service.getSystemInfo(uploadID))
+		const streamsSysInfo: Record<string, Observable<SystemInfo>> = {};
+		this.data.uploadIDs.forEach(uploadID => streamsSysInfo[uploadID] = this.service.getSystemInfo(uploadID))
 		this.loadingLpars = true;
 
-		forkJoin(streams).pipe(takeUntil(this.destroyed$)).subscribe((dataSet: Record<string, SystemInfo>) => {
+		forkJoin(streamsSysInfo).pipe(takeUntil(this.destroyed$)).subscribe((dataSet: Record<string, SystemInfo>) => {
 			for (const uploadID in dataSet){
 				if (dataSet.hasOwnProperty(uploadID)){
 				 const data = dataSet[uploadID];

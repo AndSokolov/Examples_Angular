@@ -145,7 +145,7 @@ export class RegexpCreateComponent implements OnInit, OnChanges {
 
 	/** sorting the received data by kbd_id blocks, where the first element of each block is the parent */
 	dataTransform(data: Array<any>) {
-		if (data) {
+		if (Array.isArray(data)) {
 			data.sort((a, b) => a.kdb_id.localeCompare(b.kdb_id));
 			data.forEach((item, i) => {
 				if (i !== 0 && data[i].kdb_id === data[i - 1].kdb_id) {
@@ -181,7 +181,7 @@ export class RegexpCreateComponent implements OnInit, OnChanges {
 		this.expandedElements.clear();
 		const data = this.dataSource.data;
 		if (data && data.length) {
-			data.forEach((row: any) => {
+			data.forEach((row: Regexp) => {
 				if (row.defaultExpand) {
 					row.defaultExpand = false;
 				}
@@ -193,7 +193,7 @@ export class RegexpCreateComponent implements OnInit, OnChanges {
 	expandRows() {
 		const data = this.dataSource.data;
 		if (data && data.length) {
-			data.forEach((row: any) => {
+			data.forEach((row: Regexp) => {
 				if (row.children && this.expandedElements.has(row.kdb_id)) {
 					row.defaultExpand = true;
 				}

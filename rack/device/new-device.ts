@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { AppState, getTypesOfDevices } from '@app/selectors';
 import { Store } from '@ngrx/store';
 import { DeviceType } from '@app/types-of-devices/types-of-devices.model';
+import { Device } from '@app/main/stand/stand.interface';
 
 
 @Component({
@@ -63,7 +64,7 @@ export class NewDeviceComponent implements OnInit {
 		private service: GetDataService,
 		private errorService: ErrorService,
 		private store: Store<AppState>,
-		@Inject(MAT_DIALOG_DATA) public data: any,
+		@Inject(MAT_DIALOG_DATA) public data: Device,
 	) {}
 
 	form: FormGroup;

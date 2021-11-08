@@ -1,16 +1,17 @@
-import { Directive, HostBinding, HostListener, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, HostListener, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Regexp } from '@app/logs.model';
 
 @Directive({
 	selector: '[appCdkDetailRow]'
 })
 export class CdkDetailRowDirective {
-	private row: any;
-	private tRef: TemplateRef<any>;
+	private row: Regexp;
+	private tRef: TemplateRef;
 	private opened: boolean;
 
 	/** saves the current row */
 	@Input()
-	set appCdkDetailRow(value: any) {
+	set appCdkDetailRow(value) {
 		if (value !== this.row) {
 			this.row = value;
 		}
@@ -19,7 +20,7 @@ export class CdkDetailRowDirective {
 
 	/** saves the current template for the current row. Expands rows by default */
 	@Input('appCdkDetailRowTpl')
-	set template(value: TemplateRef<any>) {
+	set template(value: TemplateRef) {
 		if (value !== this.tRef) {
 			this.tRef = value;
 		}

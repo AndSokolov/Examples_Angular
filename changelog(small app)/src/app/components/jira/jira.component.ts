@@ -30,14 +30,15 @@ export class JiraComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-    this.getJira();
+    this.getJiraNumbers();
   }
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
 
-  getJira(){
+  /** getting jira numbers from back */
+  getJiraNumbers(){
     this.getDataService.getJiraNumbers().pipe(take(1)).subscribe((jira: Array<string>) => {
       this.dataSource.data = jira ? jira.map((jira) => ({number: jira})) : [];
       this.dataSource.paginator = this.paginator;
@@ -45,6 +46,7 @@ export class JiraComponent implements OnInit, AfterViewInit {
         this.errorService.handleError(err);
     })
   }
+
 
   getCommitsByJiraNumber(jira: Jira) {
     const jiraNumber = jira.number;

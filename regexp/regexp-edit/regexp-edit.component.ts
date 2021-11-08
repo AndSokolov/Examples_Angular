@@ -18,7 +18,7 @@ export class RegexpEditComponent implements OnInit {
 		public dialogRef: MatDialogRef<RegexpEditComponent>,
 		private service: GetDataService,
 		private errorService: ErrorService,
-		@Inject(MAT_DIALOG_DATA) public data: any,
+		@Inject(MAT_DIALOG_DATA) public data,
 		private fb: FormBuilder
 	) {}
 
@@ -34,7 +34,7 @@ export class RegexpEditComponent implements OnInit {
 			filename: ['', Validators.required],
 		});
 
-		if (this.data && this.data.regexp) {
+		if (this.data?.regexp) {
 			this.form.setValue(this.data.regexp);
 			if (this.data.regexp.system_type) {
 				this.generateVersions(this.data.regexp.system_type);

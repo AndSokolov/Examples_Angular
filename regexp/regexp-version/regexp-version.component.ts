@@ -44,7 +44,7 @@ export class RegexpVersionComponent implements OnInit {
 	}
 
 	/** Transform data to Version interface */
-	dataTransform(data: any): Array<Version> {
+	dataTransform(data): Array<Version> {
 		const versions: Array<Version> = [];
 		for (const system_type in data) {
 			if (data.hasOwnProperty(system_type) && Array.isArray(data[system_type])) {

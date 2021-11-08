@@ -39,6 +39,7 @@ export class CommitsComponent implements OnInit, AfterViewInit {
     this.changeDetection.detectChanges();
   }
 
+  /** data mapping. After editing the data on the back, it will need to be removed */
   mapData() {
     this.data.forEach((commit: Commit) => {
       if (commit.CommitAuthor) {
@@ -59,6 +60,7 @@ export class CommitsComponent implements OnInit, AfterViewInit {
     })
   }
 
+  /** parse the "directory name" field */
   parseDirectoryName(commit: Commit){
     let date;
     const matches = commit.DirectoryName.match(/\d\d\d\d_\d\d_\d\d_\d\d_\d\d/);
@@ -75,6 +77,7 @@ export class CommitsComponent implements OnInit, AfterViewInit {
     }
   }
 
+  /** create an abbreviated author name */
   trimCommitAuthor(author: string): string {
     const pos = author.indexOf('@');
     if( pos !== -1 ){
@@ -83,6 +86,7 @@ export class CommitsComponent implements OnInit, AfterViewInit {
     return author;
   }
 
+  /** customize display columns for jira or boards entities */
   customizeDisplayColumns() {
     if (this.type === 'jira') {
       this.displayedColumns.splice(7, 1);

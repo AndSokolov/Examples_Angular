@@ -5,6 +5,7 @@ import { DialogComponent } from '@app/dialog.component';
 import { GetDataService } from '@app/getdata.service';
 import { take } from 'rxjs/operators';
 import { ErrorService } from '@app/error.service';
+import { DeviceType } from '@app/types-of-devices/types-of-devices.model';
 
 
 @Component({
@@ -54,7 +55,7 @@ export class NewDeviceTypeComponent implements OnInit {
 		private fb: FormBuilder,
 		private service: GetDataService,
 		private errorService: ErrorService,
-		@Inject(MAT_DIALOG_DATA) public data: any,
+		@Inject(MAT_DIALOG_DATA) public data: DeviceType,
 	) {
 	}
 	form: FormGroup;

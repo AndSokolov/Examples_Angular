@@ -32,8 +32,8 @@ interface Actions {
 })
 export class InstallBaseOnMapComponent implements OnInit, AfterViewInit, OnDestroy {
 
-	map: any;
-	searchText: string;
+
+	public searchText: string;
 	public registrations: Registration[];
 	private destroyed$ = new Subject();
 	public layerGroup;
@@ -41,7 +41,8 @@ export class InstallBaseOnMapComponent implements OnInit, AfterViewInit, OnDestr
 	public filter: Filter;
 	public resetFilter = false;
 	public readonlyFields = new Set(['system_type', 'sn', 'creation_date'])
-	public initialValues: Record<string, any>;
+	public initialValues;
+	public map;
 
 	constructor(
 		private service: GetDataService,
@@ -263,7 +264,7 @@ export class InstallBaseOnMapComponent implements OnInit, AfterViewInit, OnDestr
 	}
 
 	/** changes coordinates after moving the marker */
-	changeCoords(e: any, content: HTMLElement, reg: Registration, marker: any) {
+	changeCoords(e, content: HTMLElement, reg: Registration, marker) {
 		const dialogRef = this.dialog.open(DialogComponent, {
 			width: '320px',
 			data: {
