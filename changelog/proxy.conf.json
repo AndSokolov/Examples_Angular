@@ -1,0 +1,12 @@
+{
+  "/fwchangelog/api/v1": {
+    "target": "http://syr.dev.yadro.com:31001/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "timeout": 600000,
+    "headers": {
+      "Connection": "keep-alive"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+.toolbar{
+  margin: 0;
+}
+
+.nav-links{
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  display: inline-block;
+  list-style: none;
+  height: 56px;
+  box-sizing: border-box;
+  margin: 0;
+
+  li{
+    font-size: 15px;
+    display: inline-block;
+    margin-left: 15px;
+  }
+
+  a{
+    outline: none;
+    border: none;
+    color: rgba(0, 0, 0, 0.87);
+    text-decoration: none;
+    padding: 6px 20px;
+    border-radius: 4px;
+  }
+
+  li.active a{
+    background: #d7d7d7;
+    color: black;
+  }
+}
