@@ -1,0 +1,21 @@
+{
+  "libVersions": "sf-portal-st/assets/version.json",
+  "serviceVersionsApiUrl": "service-descriptor-storage/v1/scenario",
+  "serviceVersions": [
+    "version_zags",
+    "version_zdrav",
+    "version_fssp",
+    "version_social",
+    "version_edu",
+    "version_universal1",
+    "version_universal2",
+    "version_gibdd",
+    "version_mvd",
+    "version_reality",
+    "version_ul",
+    "version_maxteam"
+  ],
+  "formBackend": "api/form-backend/actuator/info",
+  "spAdapter": "sp-adapter/actuator/info",
+  "sfPortalLink": "600103/1/form"
+}

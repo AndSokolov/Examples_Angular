@@ -1,0 +1,25 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": false,
+    "outDir": "../../out-tsc/app",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": ["node_modules/@types"],
+    "types": ["node"],
+    "inlineSources": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "target": "es6",
+    "lib": ["es2018", "dom"],
+    "paths": {
+      "@angular/*": ["node_modules/@angular/*"],
+    }
+  },
+  "files": ["src/main.ts", "src/polyfills.ts"],
+  "include": ["src/**/*.d.ts", "src/**/*.ts"],
+  "exclude": ["**/*.spec.ts"],
+  "angularCompilerOptions": {
+    "enableIvy": true
+  },
+}

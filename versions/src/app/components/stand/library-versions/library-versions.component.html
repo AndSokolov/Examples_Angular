@@ -1,0 +1,24 @@
+<table *ngIf="libVersions" id="versions">
+  <tr>
+    <th *ngFor="let item of libVersions | keyvalue; let idx = index">
+      <ng-container
+        *ngTemplateOutlet="links[idx] ? link : span; context: { $implicit: item, links, idx }"
+      >
+      </ng-container>
+    </th>
+  </tr>
+
+  <tr>
+    <td *ngFor="let item of libVersions | keyvalue">
+      {{ item.value }}
+    </td>
+  </tr>
+</table>
+
+<ng-template #link let-item let-links="links" let-idx="idx">
+  <a [href]="links[idx]" target="_blank">{{ item.key }}</a>
+</ng-template>
+
+<ng-template #span let-item>
+  <span>{{ item.key }}</span>
+</ng-template>

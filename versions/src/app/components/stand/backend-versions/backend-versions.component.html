@@ -1,0 +1,15 @@
+<table *ngIf="backendServices" id="versions">
+  <tr>
+    <th>FS</th>
+    <th>MS</th>
+  </tr>
+
+  <tr>
+    <td>
+      {{backendServices.formBackend}}
+    </td>
+    <td>
+      {{backendServices.spAdapter}}
+    </td>
+  </tr>
+</table>

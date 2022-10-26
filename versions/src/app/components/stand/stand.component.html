@@ -1,0 +1,27 @@
+<h1 (click)="hidden = !hidden">
+  Stand: {{ name }} <span [ngClass]="{ open: !hidden }" class="indicator"></span>
+</h1>
+<div @expand *ngIf="!hidden" class="content">
+  <div *ngIf="libVersions">
+    <h3>Library Versions (FRONT)</h3>
+    <library-versions [libVersions]="libVersions" [links]="links"></library-versions>
+  </div>
+
+  <div *ngIf="formBackend || spAdapter">
+    <h3>Micro Services (BACK)</h3>
+    <backend-versions [backendServices]="{ formBackend: formBackend, spAdapter: spAdapter }">
+    </backend-versions>
+  </div>
+
+  <div *ngIf="serviceVersions">
+    <div (click)="hiddenServices = !hiddenServices">
+      <h3>
+        Service Versions
+        <span [ngClass]="{ open: !hiddenServices }" class="indicator"></span>
+      </h3>
+    </div>
+    <div @expand *ngIf="hiddenServices">
+      <service-versions [serviceVersions]="serviceVersions"></service-versions>
+    </div>
+  </div>
+</div>

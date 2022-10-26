@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="main" *ngFor="let item of versions">
+    <ng-container
+      *ngIf="{
+        libVersions: item.libVersions$ | async,
+        serviceVersions: item.serviceVersions$ | async,
+        formBackend: item.formBackend$ | async,
+        spAdapter: item.spAdapter$ | async,
+        links: item.links
+      } as data"
+    >
+      <ng-container *ngIf="data.libVersions || data.serviceVersions">
+        <stand
+          [name]="item.standType"
+          [libVersions]="data.libVersions"
+          [serviceVersions]="data.serviceVersions"
+          [formBackend]="data.formBackend"
+          [spAdapter]="data.spAdapter"
+          [links]="data.links"
+        ></stand>
+      </ng-container>
+    </ng-container>
+  </div>
+
+  <error [error]="errorService.errorEmitter | async"></error>
+</div>
